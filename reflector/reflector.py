@@ -39,7 +39,7 @@ def packet_callback(packet):
 
         if scapy.TCP in packet or scapy.UDP in packet:
             print("tcp or udp attack!")
-            del packet.getlayer(2).chksum 
+            del packet.getlayer(2).chksum
             print(packet.show())
             scapy.sendp(packet)
         else:
@@ -72,10 +72,9 @@ def main(argv):
     # scapy.conf.verb = 0
 
     try:
-        # filterstring = "ip dst " + victimip + " or arp dst " + victimip
         filterstring = "ip dst " + victimip + " or " + reflectorip + " or arp dst " + victimip + " or " + reflectorip
         scapy.sniff(filter = filterstring, prn = packet_callback)
-  
+
     except KeyboardInterrupt:
         print("\nCtrl + C pressed.............Exiting")
 
